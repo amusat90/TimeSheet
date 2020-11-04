@@ -53,7 +53,7 @@ function addUiTask() {
 function deleteTask(e) {
   var liElem = e.target.parentNode;
   index = getIndex(liElem);
-  y.splice(index,1);  //removes array object
+  arrayOfObj.splice(index,1);  //removes array object
   liElem.remove();    //removes  HTML collection object
   renderDisplay();
   index = null;
@@ -71,7 +71,7 @@ function stopCounter(e) {
 setInterval( function() {
     if( index != null ) {
       add(index);
-      renderTotalTime();
+      renderDisplay();
     }
   },
   1000);
