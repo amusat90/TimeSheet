@@ -3,11 +3,10 @@ var inputContent = document.getElementById('new-task-name');
 var tdLocation = document.getElementById("td-location");
 var totalCalcLoc = document.getElementById("total-calculation");
 
-var domLiElements = []; // HTML collection
+
 var arrayOfObj = []; // array of objects
 var index; // holds index position for both of the above
 var totalCalc = new Task(0,0,0); //total time spent on tasks
-
 
 function createTask() {
   if ( inputContent.value != "") {
@@ -48,14 +47,14 @@ function addUiTask() {
   newLi.appendChild(startBtn);
   startBtn.addEventListener('click', startCounter);
 
-  domLiElements.push(newLi);
 }
 
 function deleteTask(e) {
+  // debugger;
   var liElem = e.target.parentNode;
+  liElem.remove();    //removes  HTML collection object
   index = getIndex(liElem);
-  arrayOfObj.splice(index,1);  //removes array object;
-  liElem.remove();    //removes  HTML collection display;
+  arrayOfObj.splice(index,1);  //removes array object
   renderDisplay();
   index = null;
 }
