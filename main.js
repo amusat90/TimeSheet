@@ -8,6 +8,7 @@ var arrayOfObj = []; // array of objects
 var index; // holds index position for both of the above
 var totalCalc = new Task(0,0,0); //total time spent on tasks
 
+
 function createTask() {
   if ( inputContent.value != "") {
     addUiTask();
@@ -53,8 +54,8 @@ function addUiTask() {
 function deleteTask(e) {
   var liElem = e.target.parentNode;
   index = getIndex(liElem);
-  arrayOfObj.splice(index,1);  //removes array object
-  liElem.remove();    //removes  HTML collection object
+  arrayOfObj.splice(index,1);  //removes array object;
+  liElem.remove();    //removes  HTML collection display;
   renderDisplay();
   index = null;
 }

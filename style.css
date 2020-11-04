@@ -1,20 +1,9 @@
-.flex-container div{
-  display: inline-block;
-  width: 100px;
+#wrapper{
+  display: flex;
+  flex-direction: row;
 }
 
-th, td {
-  border: 1px solid black;
-}
-
-table{
-  width:17%;
-}
-
-th{
-  text-align: left;
-}
-
-button*{
-  float:right;
+#li-location{
+  display: flex;
+    flex-flow: column wrap;
 }
