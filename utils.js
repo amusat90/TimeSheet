@@ -1,6 +1,6 @@
 function getIndex(liElem) {
   // var child = e.target.parentNode;
-  var index = 0;
+  index = 0;
   while( (liElem = liElem.previousElementSibling) != null ){
     index++;
   }
@@ -37,18 +37,21 @@ function add(index) {
 function renderDisplay() {
   tdLocation.innerHTML = null;
   for (var i = 0; i < arrayOfObj.length; i++) {
-    tdLocation.innerHTML += '<tr><td>'+ arrayOfObj[i].time+'</td></tr>';
+    tdLocation.innerHTML += '<tr class = "list-group"><td class="tdDims list-group-item list-group-item-action">'+ arrayOfObj[i].time+'</td></tr>';
   }
+
+  totalCalc.hours = 0;
+  totalCalc.minutes = 0;
+  totalCalc.seconds = 0;
   totalCalcLoc.innerHTML = null;
 
-  totalCalc.seconds = 0;
-  totalCalc.minutes = 0;
-  totalCalc.hours  = 0;
   for (var i = 0; i < arrayOfObj.length; i++) {
     totalCalc.hours += arrayOfObj[i].hours;
     totalCalc.minutes += arrayOfObj[i].minutes;
     totalCalc.seconds += arrayOfObj[i].seconds;
   }
+
+
   if(totalCalc.seconds >= 60) {
     totalCalc.seconds = 0;
     totalCalc.minutes ++;
@@ -57,5 +60,6 @@ function renderDisplay() {
       totalCalc.hours ++;
     }
   }
-  totalCalcLoc.innerHTML = "Total time spent today is: " + totalCalc.hours + ":" +totalCalc.minutes + ":" + totalCalc.seconds ;
+
+  totalCalcLoc.innerHTML = "Total time : " + totalCalc.hours + ":" +totalCalc.minutes + ":" + totalCalc.seconds ;
 }

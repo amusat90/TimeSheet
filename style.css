@@ -1,9 +1,40 @@
 #wrapper{
   display: flex;
   flex-direction: row;
+  margin-top:  1rem!important;
 }
 
-#li-location{
+/* #li-location,.list-group{
   display: flex;
-    flex-flow: column wrap;
+  flex-flow: column;
+} */
+
+/* d-flex justify-content-center  */
+.input-group{
+  width: 35%;
+  /* justify-content: center; */
+  margin:auto;
+  margin-top:  1rem!important;
+
+}
+.btn-secondary{
+  margin: 1px;
+  padding: .175rem .45rem;
+}
+
+
+.list-group{
+  text-align: right;
+}
+
+.totalC{
+  margin-top:  1rem!important;
+  text-align: center;
+  font-size: 16px;
+}
+
+.tdDims{
+  padding: 1.11rem  1.25rem;
+  border: none;
+  /* line-height: 2; */
 }
