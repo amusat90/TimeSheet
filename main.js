@@ -1,81 +1,74 @@
-var ul = document.getElementById('li-location');
-var inputContent = document.getElementById('new-task-name');
-var tdLocation = document.getElementById("td-location");
-var totalCalcLoc = document.getElementById("total-calculation");
+var taskContainer = []; //empty array of objects containing all tasks;
+const addTask = document.getElementById("addTask");
+const nameOfTask = document.getElementById("nameOfTask");
+const listOfTasks = document.getElementById("listOfTasks");
+const totalTimeSpent = document.getElementById("totalTimeSpent");
 
-// var domLiElements = []; // HTML collection
-var arrayOfObj = []; // array of objects
-var index; // holds index position for both of the above
-var totalCalc = new Task(0,0,0); //total time spent on tasks
+var index;
+var view = new View;
 
-function createTask() {
-  if ( inputContent.value != "") {
-    addUiTask();
+// click 'ADD'
+addTask.addEventListener('click', function() {
+  if ( nameOfTask.value != "") {
+    createTask();
   }
   else{
     alert("Please enter a valid task name");
   }
-  inputContent.value = "";
+  nameOfTask.value = null;
+});
+//press ENTER instead of clicking 'ADD'
+nameOfTask.addEventListener('keyup', function(event) {
+    if (event.keyCode === 13) {
+      createTask();
+      nameOfTask.value = null;
+    }
+});
+//Array of TASK obj
+function createTask() {
+  taskContainer.push(new Task(nameOfTask.value));
+  renderAllTasks();
 }
 
+function renderAllTasks() {
+    listOfTasks.innerHTML = null;
+    let totalSeconds = 0;
+    for( var i = 0 ; i < taskContainer.length ; i ++){
+        view.renderTasksInterface(taskContainer[i]);
+        totalSeconds += taskContainer[i].time.seconds;
+      }
 
-function addUiTask() {
-  arrayOfObj.push(new Task (0,0,0,inputContent.value,""));
+    let renderTotalTimeSpent = document.getElementById("totalTimeSpent");
+    renderTotalTimeSpent.innerHTML = view.returnTimeCalculation(totalSeconds) ;
+    }
 
-  var newLi = document.createElement('a');
-  ul.appendChild(newLi);
-  newLi.className = 'list-group-item list-group-item-action';
-
-  // adding the task name as TextNode Child
-  var textNode = document.createTextNode(inputContent.value);
-  newLi.appendChild(textNode);
-
-  // button Delete
-  var delBtn = document.createElement('button');
-  delBtn.appendChild(document.createTextNode('Delete'));
-  newLi.appendChild(delBtn);
-  delBtn.addEventListener('click', deleteTask);
-  delBtn.className = 'btn btn-secondary';
-
-  // button Stop
-  var stopBtn = document.createElement('button');
-  stopBtn.appendChild(document.createTextNode('Stop'));
-  newLi.appendChild(stopBtn);
-  stopBtn.addEventListener('click', stopCounter);
-  stopBtn.className = 'btn btn-secondary';
-
-  // button Start
-  var startBtn = document.createElement('button');
-  startBtn.appendChild(document.createTextNode('Start'));
-  newLi.appendChild(startBtn);
-  startBtn.addEventListener('click', startCounter);
-  startBtn.className = 'btn btn-secondary';
-
-  // domLiElements.push(newLi);
+function checkUncheckTask(e) {
+  var child = e.currentTarget.parentNode;
+  getIndex(child);
+  taskContainer[index].toggleCheck();
 }
 
 function deleteTask(e) {
-  var liElem = e.target.parentNode;
-  index = getIndex(liElem);
-  arrayOfObj.splice(index,1);  //removes array object
-  liElem.remove();    //removes  HTML collection object
-  renderDisplay();
-  index = null;
+  var child = e.currentTarget.parentNode;
+  getIndex(child);
+  child.remove();    //Removes task from DOM
+  taskContainer.splice(index,1);  //Removes task from array of OBJ
 }
 
-function startCounter(e) {
-  var liElem = e.target.parentNode;
-  index = getIndex(liElem);
+function getIndex(child) {
+  index = 0;
+  while ( (child = child.previousElementSibling ) !== null) {
+    index ++;
+  }
 }
 
-function stopCounter(e) {
-  index = null;
-}
-
-setInterval( function() {
-    if( index != null ) {
-      add(index);
-      renderDisplay();
+function stopStartCounter(e) {
+  var child = e.currentTarget.parentNode;
+  getIndex(child);
+  taskContainer[index].toggleCounter();
+  for( var i = 0 ; i < taskContainer.length ; i ++){
+      if (( taskContainer[i].toggle === true) && (i != index )) {
+        taskContainer[i].toggleCounter() ;
+      }
     }
-  },
-  1000);
+}
